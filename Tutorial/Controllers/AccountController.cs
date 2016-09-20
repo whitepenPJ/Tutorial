@@ -9,10 +9,11 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Tutorial.Models;
+using Tutorial.DAL;
+using InCoze.Standard.Utilities;
 
 namespace Tutorial.Controllers
 {
-    [Authorize]
     public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;
@@ -73,12 +74,23 @@ namespace Tutorial.Controllers
                 return View(model);
             }
 
+            var user = UserManager.FindByEmail(model.Email);
+
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            var result = await SignInManager.PasswordSignInAsync( (user != null ? user.UserName : ""), model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:
+                    if (string.IsNullOrEmpty(returnUrl))
+                    {
+                        var role = UserManager.GetRoles(user.Id).Where( r => r.ToString() == Helper.UserRole.SuperAdmin).FirstOrDefault();
+
+                        if (role != null)
+                        {
+                            return RedirectToAction("Admin", "Home");
+                        }
+                    }
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -139,6 +151,9 @@ namespace Tutorial.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+            IdentityDb db = new IdentityDb();
+            ViewBag.Name = new SelectList(db.Roles.ToList(), "Name", "Description" );
+
             return View();
         }
 
@@ -156,12 +171,15 @@ namespace Tutorial.Controllers
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+                    //Assign Role to user Here   
+                    await this.UserManager.AddToRoleAsync(user.Id, model.UserRole);
 
                     return RedirectToAction("Index", "Home");
                 }
@@ -387,8 +405,8 @@ namespace Tutorial.Controllers
 
         //
         // POST: /Account/LogOff
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        // GET: /Account/LogOff
+        [HttpGet]
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);

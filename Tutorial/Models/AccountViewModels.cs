@@ -65,6 +65,14 @@ namespace Tutorial.Models
     public class RegisterViewModel
     {
         [Required]
+        [Display(Name = "User Role")]
+        public string UserRole { get; set; }
+
+        [Required]
+        [Display(Name = "Name")]
+        public string UserName { get; set; }
+
+        [Required]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }

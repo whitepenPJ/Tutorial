@@ -1,0 +1,65 @@
+@model IEnumerable<Tutorial.Models.RegisterViewModel>
+
+@{
+	ViewBag.ControllerName = this.ViewContext.RouteData.Values["controller"] as string;
+    ViewBag.Title = "Account";
+	Layout = "/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>@ViewBag.Title</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a href="@Url.Action("Create")" class="close-link"><i class="fa fa-plus"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+				<table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+					<thead>
+						<tr>
+							<th>UserRole</th>
+							<th>UserName</th>
+							<th>Email</th>
+							<th>Password</th>
+							<th>ConfirmPassword</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach (var item in Model) {
+							<tr>
+								<td>@item.UserRole</td>
+								<td>@item.UserName</td>
+								<td>@item.Email</td>
+								<td>@item.Password</td>
+								<td>@item.ConfirmPassword</td>
+								<td class="text-center">
+								<div class="btn-group">
+									<a href="@Url.Action("Edit", new { /* id=item.PrimaryKey */ })" class="btn btn-sm btn-default" type="button" data-placement="top" data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-edit"></i></a>
+									<a href="@Url.Action("Details", new { /* id=item.PrimaryKey */ })" class="btn btn-sm btn-default" type="button" data-placement="top" data-toggle="tooltip" data-original-title="View"><i class="fa fa-eye"></i></a>
+									<a href="@Url.Action("Delete", new { /* id=item.PrimaryKey */ })" class="btn btn-sm btn-default" type="button" data-placement="top" data-toggle="tooltip" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
+								</div>
+							</td>
+							</tr>
+						}
+					</tbody>
+				</table>
+			</div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $('#datatable-responsive').DataTable();
+        });
+    </script>
+}
+
