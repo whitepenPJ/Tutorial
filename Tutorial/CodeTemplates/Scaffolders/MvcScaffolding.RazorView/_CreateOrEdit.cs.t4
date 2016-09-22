@@ -1,4 +1,4 @@
-﻿<#@ Template Language="C#" HostSpecific="True" Inherits="DynamicTransform" debug="false" #>
+﻿<#@ Template Language="C#" HostSpecific="True" Inherits="DynamicTransform" #>
 <#@ Output extension="cshtml" #>
 <#@ assembly name="System.ComponentModel.DataAnnotations" #>
 <#@ assembly name="System.Core" #>
@@ -16,7 +16,7 @@
 <# if(viewDataType != null) { #>
 @model <#= viewDataType.FullName #>
 <# } #>
-@using InCoze.Standard.Utilities
+@using Tutorial.Utilities
 
 @* This partial view defines form fields that will appear when creating and editing entities *@
 
@@ -28,8 +28,6 @@
     }
 }
 
-<# System.Diagnostics.Debugger.Launch(); #>
-
 <#
 foreach (ModelProperty property in GetModelProperties(Model.ViewDataType, false)) {
 	var codeTypeRef = property.Type;
@@ -38,7 +36,12 @@ foreach (ModelProperty property in GetModelProperties(Model.ViewDataType, false)
 #>
 <div class="form-group">
 	<div class="col-md-offset-3 col-md-6 col-sm-6 col-xs-12">
-		@Html.ICCheckBoxFor(model => model.<#= property.Name #>, htmlCheckBoxAttributes: new { @class = "flat" })        
+		@if (read_only)
+        {
+			@Html.ICCheckBoxFor(model => model.<#= property.Name #>, htmlCheckBoxAttributes: new { @class = "flat", @disabled = "disabled" })
+		}else{
+			@Html.ICCheckBoxFor(model => model.<#= property.Name #>, htmlCheckBoxAttributes: new { @class = "flat" })
+		}		
 		@Html.ValidationMessageFor(model => model.<#= property.Name #>, "", new { @class = "error-text" })
 	</div>
 </div>

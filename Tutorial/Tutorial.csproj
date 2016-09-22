@@ -220,9 +220,15 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\DepartmentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="DAL\ApplicationDb.cs" />
+    <Compile Include="DAL\ApplicationDbMigration\201609201941104_Initial.cs" />
+    <Compile Include="DAL\ApplicationDbMigration\201609201941104_Initial.Designer.cs">
+      <DependentUpon>201609201941104_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\ApplicationDbMigration\Configuration.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Department.cs" />
     <Compile Include="DAL\IdentityDb.cs" />
@@ -259,12 +265,12 @@
     <None Include=".bin\git.cmd" />
     <None Include=".bin\node.cmd" />
     <None Include=".bin\npm.cmd" />
-    <Content Include="CodeTemplates\Scaffolders\MvcScaffolding.RazorView\Index.cs.t4" />
-    <Content Include="CodeTemplates\Scaffolders\MvcScaffolding.RazorView\Create.cs.t4" />
     <Content Include="CodeTemplates\Scaffolders\MvcScaffolding.RazorView\_CreateOrEdit.cs.t4" />
+    <Content Include="CodeTemplates\Scaffolders\MvcScaffolding.RazorView\Create.cs.t4" />
     <Content Include="CodeTemplates\Scaffolders\MvcScaffolding.RazorView\Delete.cs.t4" />
     <Content Include="CodeTemplates\Scaffolders\MvcScaffolding.RazorView\Details.cs.t4" />
     <Content Include="CodeTemplates\Scaffolders\MvcScaffolding.RazorView\Edit.cs.t4" />
+    <Content Include="CodeTemplates\Scaffolders\MvcScaffolding.RazorView\Index.cs.t4" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -2655,8 +2661,8 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
-    <Content Include="Views\Shared\_MenuAdminPartial.cshtml" />
+    <Content Include="Views\Shared\Gentelella\_LayoutAdmin.cshtml" />
+    <Content Include="Views\Shared\Gentelella\_MenuAdminPartial.cshtml" />
     <Content Include="Views\Home\Admin.cshtml" />
     <Content Include="Themes\gentelella\.bowerrc" />
     <Content Include="Themes\gentelella\.npmignore" />
@@ -3368,6 +3374,12 @@
     <Content Include="Themes\gentelella\vendors\validator\README.md" />
     <Content Include="Themes\gentelella\vendors\validator\validator.jquery.json" />
     <Content Include="Views\Account\Index.cshtml" />
+    <Content Include="Views\Department\Create.cshtml" />
+    <Content Include="Views\Department\Edit.cshtml" />
+    <Content Include="Views\Department\Delete.cshtml" />
+    <Content Include="Views\Department\Details.cshtml" />
+    <Content Include="Views\Department\Index.cshtml" />
+    <Content Include="Views\Department\_CreateOrEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -3387,6 +3399,9 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="DAL\ApplicationDbMigration\201609201941104_Initial.resx">
+      <DependentUpon>201609201941104_Initial.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DAL\IdentityDbMigration\201609191637456_Initial.resx">
       <DependentUpon>201609191637456_Initial.cs</DependentUpon>
     </EmbeddedResource>

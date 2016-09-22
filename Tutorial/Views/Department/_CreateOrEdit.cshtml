@@ -1,0 +1,52 @@
+@model Tutorial.Models.Department
+@using Tutorial.Utilities
+
+@* This partial view defines form fields that will appear when creating and editing entities *@
+
+@{ 
+    bool read_only = false;
+
+    if ( ViewData["readonly"] != null && (bool)ViewData["readonly"] == true ) {
+        read_only = true;
+    }
+}
+
+
+<div class="form-group">
+    @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+	<div class="col-md-6 col-sm-6 col-xs-12">
+		@if (read_only)
+        {
+			@Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control col-md-7 col-xs-12", @readonly = "readonly" } })
+		}else{
+			@Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control col-md-7 col-xs-12" } })
+		}
+		@Html.ValidationMessageFor(model => model.Name, "", new { @class = "error-text" })
+	</div>
+</div>
+
+
+<div class="form-group">
+    @Html.LabelFor(model => model.Sequence, htmlAttributes: new { @class = "control-label col-md-3 col-sm-3 col-xs-12" })
+	<div class="col-md-6 col-sm-6 col-xs-12">
+		@if (read_only)
+        {
+			@Html.EditorFor(model => model.Sequence, new { htmlAttributes = new { @class = "form-control col-md-7 col-xs-12", @readonly = "readonly" } })
+		}else{
+			@Html.EditorFor(model => model.Sequence, new { htmlAttributes = new { @class = "form-control col-md-7 col-xs-12" } })
+		}
+		@Html.ValidationMessageFor(model => model.Sequence, "", new { @class = "error-text" })
+	</div>
+</div>
+
+<div class="form-group">
+	<div class="col-md-offset-3 col-md-6 col-sm-6 col-xs-12">
+		@if (read_only)
+        {
+			@Html.ICCheckBoxFor(model => model.Active, htmlCheckBoxAttributes: new { @class = "flat", @disabled = "disabled" })
+		}else{
+			@Html.ICCheckBoxFor(model => model.Active, htmlCheckBoxAttributes: new { @class = "flat" })
+		}		
+		@Html.ValidationMessageFor(model => model.Active, "", new { @class = "error-text" })
+	</div>
+</div>

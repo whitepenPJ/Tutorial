@@ -29,7 +29,7 @@ if (!String.IsNullOrEmpty(Model.Layout)) {
 }
 #>
 <# else { #>
-	Layout = "/Views/Shared/_LayoutAdmin.cshtml";
+	Layout = "/Views/Shared/Gentelella/_LayoutAdmin.cshtml";
 <# } #>
 }
 
