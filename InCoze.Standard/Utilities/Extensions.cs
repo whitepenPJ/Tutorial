@@ -144,7 +144,7 @@ namespace Incoze.Standard.Utilities
                     }
                 }
             }
-            return (attr != null) ? attr.Name : String.Empty;
+            return (attr != null) ? attr.Name : propertyName;
         }
     }
 }

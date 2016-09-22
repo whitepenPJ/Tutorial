@@ -16,7 +16,7 @@
 <# if(viewDataType != null) { #>
 @model <#= viewDataType.FullName #>
 <# } #>
-@using Tutorial.Utilities
+@using InCoze.Standard.Utilities
 
 @* This partial view defines form fields that will appear when creating and editing entities *@
 
