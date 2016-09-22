@@ -15,6 +15,7 @@
       <li>
         Create Controller --> Scaffold Controller {ModelName} -DbContextType ApplicationDb -ControllerName {ControllerName}
         <br/><small><i>ControllerName is optional parameter. If not specify, program will be generate controller name with modeal name + "Controller" </i></small>
+        <small><i>***Becareful, model name will be generated, If the name of model doesn't math with class name. Ex: If your class name is ParameterModel and your instance name in context is Parameters, So program will add new instance name ParameterModels in your context.</i></small>
       </li>
     </ul>
   </li>
